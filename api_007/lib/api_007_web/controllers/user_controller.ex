@@ -15,13 +15,13 @@ defmodule Api007Web.UserController do
 		%{id: user.id, email: user.email, is_active: user.is_active}
 	end
 
-  def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Auth.create_user(user_params) do
+  def create(conn, %{"user" => user}) do
+    with {:ok, %User{} = user} <- Auth.create_user(user) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.user_path(conn, :show, user))
       |> render("show.json", user: user)
-    end
+		end
   end
 
   def show(conn, %{"id" => id}) do
