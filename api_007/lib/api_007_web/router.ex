@@ -18,6 +18,7 @@ defmodule Api007Web.Router do
   scope "/api", Api007Web do
 		pipe_through [:api, :api_auth]
 		resources "/users", UserController, except: [:new, :edit]
+		resources "/posts", PostController, except: [:new, :edit]
   end
 
   defp ensure_authenticated(conn, _opts) do
