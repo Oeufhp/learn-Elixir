@@ -114,9 +114,20 @@ defmodule Api007.Auth do
 
 	defp verify_password(user, password) do
 		if Bcrypt.verify_pass(password, user.password_hash) do
-			{:ok, user}
+			set_active(user)
 		else
+			set_inactive(user)
 			{:error, "Wrong email or password"}
 		end
+	end
+
+	defp set_active(user) do
+		query = from(u in User, where: u.email == ^user.email)
+		query |> Repo.one() |> User.set_active_changeset() |> Repo.update()
+	end
+
+	defp set_inactive(user) do
+		query = from(u in User, where: u.email == ^user.email)
+		query |> Repo.one() |> User.set_inactive_changeset() |> Repo.update()
 	end
 end
