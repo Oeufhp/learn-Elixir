@@ -27,4 +27,9 @@ defmodule Api007Web.UserView do
       }
     }
 	end
+	def render("result.json", %{result: result}) do
+			%{
+				result: result
+			}
+	end
 end

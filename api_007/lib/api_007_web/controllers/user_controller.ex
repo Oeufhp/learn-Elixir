@@ -11,10 +11,6 @@ defmodule Api007Web.UserController do
     render(conn, "index.json", users: users)
   end
 
-	def render("user.json", %{user: user}) do
-		%{id: user.id, email: user.email, is_active: user.is_active}
-	end
-
   def create(conn, %{"user" => user}) do
     with {:ok, %User{} = user} <- Auth.create_user(user) do
       conn
@@ -60,5 +56,31 @@ defmodule Api007Web.UserController do
         |> put_view(Api007Web.ErrorView)
         |> render("401.json", message: message)
 		end
+	end
+
+	def verify_structure(conn, %{"structure" => structure, "required_type_list" => required_type_list}) do
+		map_ja = Enum.map(structure, fn(each) -> 
+			# if each["type"] == nil do
+			# 	"no type found"
+			# else
+			# 	is_required_type(each["type"], required_type_list)
+			# end
+			case each["type"] do
+				nil -> %{
+					key: each["key"],
+					is_type_contain: false
+				}
+				_ -> %{
+					key: each["key"],
+					is_type_contain: is_required_type(each["type"], required_type_list)
+				}
+			end
+		end
+		)
+		render(conn, "result.json", result: map_ja)
+	end
+
+	defp is_required_type(each_value, required_list) do
+		Enum.member?(required_list, each_value)
 	end
 end

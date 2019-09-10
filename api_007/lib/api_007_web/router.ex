@@ -12,7 +12,8 @@ defmodule Api007Web.Router do
 
   scope "/api", Api007Web do
     pipe_through :api
-    post "/users/signin", UserController, :signin
+		post "/users/signin", UserController, :signin
+		post "/users/verify_structure", UserController, :verify_structure
   end
 
   scope "/api", Api007Web do
