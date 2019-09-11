@@ -9,6 +9,5 @@ defmodule Api007.Repo.Migrations.CreatePosts do
 
       timestamps()
     end
-
   end
 end

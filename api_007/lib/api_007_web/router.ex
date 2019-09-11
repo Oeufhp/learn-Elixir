@@ -12,14 +12,15 @@ defmodule Api007Web.Router do
 
   scope "/api", Api007Web do
     pipe_through :api
-		post "/users/signin", UserController, :signin
-		post "/users/verify_structure", UserController, :verify_structure
+    post "/users/signin", UserController, :signin
+    post "/users/verify_structure", UserController, :verify_structure
+    post "/users/validate_class", UserController, :validate_class
   end
 
   scope "/api", Api007Web do
-		pipe_through [:api, :api_auth]
-		resources "/users", UserController, except: [:new, :edit]
-		resources "/posts", PostController, except: [:new, :edit]
+    pipe_through [:api, :api_auth]
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/posts", PostController, except: [:new, :edit]
   end
 
   defp ensure_authenticated(conn, _opts) do

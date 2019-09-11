@@ -11,13 +11,10 @@ defmodule Api007Web.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
-      email: user.email,
-      password: user.password,
-      is_active: user.is_active}
-	end
+    %{id: user.id, email: user.email, password: user.password, is_active: user.is_active}
+  end
 
-	def render("signin.json", %{user: user}) do
+  def render("signin.json", %{user: user}) do
     %{
       data: %{
         user: %{
@@ -26,10 +23,11 @@ defmodule Api007Web.UserView do
         }
       }
     }
-	end
-	def render("result.json", %{result: result}) do
-			%{
-				result: result
-			}
-	end
+  end
+
+  def render("result.json", %{result: result}) do
+    %{
+      result: result
+    }
+  end
 end

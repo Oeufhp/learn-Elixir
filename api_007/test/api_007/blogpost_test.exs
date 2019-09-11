@@ -7,7 +7,11 @@ defmodule Api007.BlogpostTest do
     alias Api007.Blogpost.Post
 
     @valid_attrs %{message: "some message", title: "some title", user_id: "some user_id"}
-    @update_attrs %{message: "some updated message", title: "some updated title", user_id: "some updated user_id"}
+    @update_attrs %{
+      message: "some updated message",
+      title: "some updated title",
+      user_id: "some updated user_id"
+    }
     @invalid_attrs %{message: nil, title: nil, user_id: nil}
 
     def post_fixture(attrs \\ %{}) do

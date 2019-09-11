@@ -11,9 +11,9 @@ defmodule Api007Web.FallbackController do
     |> put_status(:not_found)
     |> put_view(Api007Web.ErrorView)
     |> render(:"404")
-	end
+  end
 
-	def call(conn, {:error, %Ecto.Changeset{}}) do
+  def call(conn, {:error, %Ecto.Changeset{}}) do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(Api007Web.ErrorView)

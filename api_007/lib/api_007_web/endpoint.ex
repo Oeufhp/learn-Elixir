@@ -32,9 +32,9 @@ defmodule Api007Web.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-	plug Corsica,
-		origins: "http://localhost:8080",
-		log: [rejected: :error, invalid: :warn, accepted: :debug]
+  plug Corsica,
+    origins: "http://localhost:8080",
+    log: [rejected: :error, invalid: :warn, accepted: :debug]
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.

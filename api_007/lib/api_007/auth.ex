@@ -49,7 +49,7 @@ defmodule Api007.Auth do
       {:error, %Ecto.Changeset{}}
 
   """
-	def create_user(attrs \\ %{}) do
+  def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
@@ -100,34 +100,34 @@ defmodule Api007.Auth do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
-	end
+  end
 
-	def authenticate_user(email, password) do
-		query = from(user in User, where: user.email == ^email)
-		query |> Repo.one() |> verify_password(password)
-	end
+  def authenticate_user(email, password) do
+    query = from(user in User, where: user.email == ^email)
+    query |> Repo.one() |> verify_password(password)
+  end
 
-	defp verify_password(nil, _) do
-		Bcrypt.no_user_verify()
-		{:error, "Wrong email or password"}
-	end
+  defp verify_password(nil, _) do
+    Bcrypt.no_user_verify()
+    {:error, "Wrong email or password"}
+  end
 
-	defp verify_password(user, password) do
-		if Bcrypt.verify_pass(password, user.password_hash) do
-			set_active(user)
-		else
-			set_inactive(user)
-			{:error, "Wrong email or password"}
-		end
-	end
+  defp verify_password(user, password) do
+    if Bcrypt.verify_pass(password, user.password_hash) do
+      set_active(user)
+    else
+      set_inactive(user)
+      {:error, "Wrong email or password"}
+    end
+  end
 
-	defp set_active(user) do
-		query = from(u in User, where: u.email == ^user.email)
-		query |> Repo.one() |> User.set_active_changeset() |> Repo.update()
-	end
+  defp set_active(user) do
+    query = from(u in User, where: u.email == ^user.email)
+    query |> Repo.one() |> User.set_active_changeset() |> Repo.update()
+  end
 
-	defp set_inactive(user) do
-		query = from(u in User, where: u.email == ^user.email)
-		query |> Repo.one() |> User.set_inactive_changeset() |> Repo.update()
-	end
+  defp set_inactive(user) do
+    query = from(u in User, where: u.email == ^user.email)
+    query |> Repo.one() |> User.set_inactive_changeset() |> Repo.update()
+  end
 end

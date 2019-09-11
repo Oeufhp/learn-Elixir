@@ -66,6 +66,7 @@ defmodule Api007.AuthTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+
     test "authenticate_user/2 authenticates the user" do
       user = user_fixture()
       assert {:error, "Wrong email or password"} = Auth.authenticate_user("wrong email", "")
