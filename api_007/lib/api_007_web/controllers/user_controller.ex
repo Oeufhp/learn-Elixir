@@ -118,11 +118,27 @@ defmodule Api007Web.UserController do
           }
         end
 
-      _ ->
-        %{
-          key: feature["key"],
-          class: Enum.map(feature["options"], fn each -> each["value"] end)
-        }
+			_->
+				[head| _] = feature["options"]
+				cond do
+					is_map(head) == true ->
+						%{
+							key: feature["key"],
+							# class: Enum.map(feature["options"], fn(each) -> each["value"] end)
+							class: feature["options"] |> Enum.map(& &1["value"])
+						}
+					is_list(head) == true ->
+						%{
+							key: feature["key"],
+							class: head
+						}
+					is_binary(head) == true ->
+						%{
+							key: feature["key"],
+							# class: Enum.map(feature["options"], fn(each) -> each end)
+						  class: feature["options"] |> Enum.map(& &1)
+						}
+				end
     end
   end
 end
