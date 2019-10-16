@@ -1,12 +1,12 @@
-defmodule Api007.Blogpost do
+defmodule Api007.Posts do
   @moduledoc """
-  The Blogpost context.
+  The Posts context.
   """
 
   import Ecto.Query, warn: false
   alias Api007.Repo
 
-  alias Api007.Blogpost.Post
+  alias Api007.Posts.Post
 
   @doc """
   Returns the list of posts.

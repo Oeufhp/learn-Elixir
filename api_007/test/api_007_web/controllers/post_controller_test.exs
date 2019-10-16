@@ -1,23 +1,19 @@
 defmodule Api007Web.PostControllerTest do
   use Api007Web.ConnCase
 
-  alias Api007.Blogpost
-  alias Api007.Blogpost.Post
+  alias Api007.Posts
+  alias Api007.Posts.Post
 
   @create_attrs %{
-    message: "some message",
-    title: "some title",
-    user_id: "some user_id"
+    message: "some message"
   }
   @update_attrs %{
-    message: "some updated message",
-    title: "some updated title",
-    user_id: "some updated user_id"
+    message: "some updated message"
   }
-  @invalid_attrs %{message: nil, title: nil, user_id: nil}
+  @invalid_attrs %{message: nil}
 
   def fixture(:post) do
-    {:ok, post} = Blogpost.create_post(@create_attrs)
+    {:ok, post} = Posts.create_post(@create_attrs)
     post
   end
 
@@ -41,9 +37,7 @@ defmodule Api007Web.PostControllerTest do
 
       assert %{
                "id" => id,
-               "message" => "some message",
-               "title" => "some title",
-               "user_id" => "some user_id"
+               "message" => "some message"
              } = json_response(conn, 200)["data"]
     end
 
@@ -64,9 +58,7 @@ defmodule Api007Web.PostControllerTest do
 
       assert %{
                "id" => id,
-               "message" => "some updated message",
-               "title" => "some updated title",
-               "user_id" => "some updated user_id"
+               "message" => "some updated message"
              } = json_response(conn, 200)["data"]
     end
 

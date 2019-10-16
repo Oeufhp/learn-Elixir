@@ -11,6 +11,7 @@ defmodule Api007Web.PostView do
   end
 
   def render("post.json", %{post: post}) do
-    %{id: post.id, title: post.title, message: post.message, user_id: post.user_id}
+    %{id: post.id,
+      message: post.message}
   end
 end
