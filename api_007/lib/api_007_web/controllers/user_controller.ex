@@ -7,8 +7,8 @@ defmodule Api007Web.UserController do
   action_fallback Api007Web.FallbackController
 
   def index(conn, _params) do
-    userss = Users.list_userss()
-    render(conn, "index.json", userss: userss)
+    users = Users.list_users()
+    render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -27,6 +27,13 @@ defmodule Api007Web.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
+      render(conn, "show.json", user: user)
+    end
+  end
+
+  def upsert_user_posts(conn, %{ "id" => id, "user_post" => user_params}) do
+    user = Users.get_user!(id)
+    with {:ok, %User{} = user} <- Users.upsert_user_posts(user, user_params["post_ids"]) do
       render(conn, "show.json", user: user)
     end
   end

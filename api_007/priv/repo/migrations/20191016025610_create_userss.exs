@@ -1,8 +1,8 @@
-defmodule Api007.Repo.Migrations.CreateUserss do
+defmodule Api007.Repo.Migrations.Createusers do
   use Ecto.Migration
 
   def change do
-    create table(:userss) do
+    create table(:users) do
       add :name, :string
 
       timestamps()

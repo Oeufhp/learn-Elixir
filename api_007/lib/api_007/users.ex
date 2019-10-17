@@ -7,17 +7,18 @@ defmodule Api007.Users do
   alias Api007.Repo
 
   alias Api007.Users.User
+  alias Api007.Posts.Post
 
   @doc """
-  Returns the list of userss.
+  Returns the list of users.
 
   ## Examples
 
-      iex> list_userss()
+      iex> list_users()
       [%User{}, ...]
 
   """
-  def list_userss do
+  def list_users do
     Repo.all(User) |> Repo.preload(:posts)
   end
 
@@ -71,6 +72,23 @@ defmodule Api007.Users do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+  end
+
+  def upsert_user_posts(user, post_ids) when is_list(post_ids) do
+    posts = 
+    Post
+    |> where([post], post.id in ^post_ids)
+    |> Repo.all()
+
+    with {:ok, _} <- user
+      |> Repo.preload(:posts)
+      |> User.changeset_update_post(posts)
+      |> Repo.update() do
+        {:ok, get_user!(user.id)}
+      else 
+        error -> error
+      end 
+
   end
 
   @doc """

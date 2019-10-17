@@ -3,7 +3,7 @@ defmodule Api007.UsersTest do
 
   alias Api007.Users
 
-  describe "userss" do
+  describe "users" do
     alias Api007.Users.User
 
     @valid_attrs %{name: "some name"}
@@ -19,9 +19,9 @@ defmodule Api007.UsersTest do
       user
     end
 
-    test "list_userss/0 returns all userss" do
+    test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Users.list_userss() == [user]
+      assert Users.list_users() == [user]
     end
 
     test "get_user!/1 returns the user with given id" do
