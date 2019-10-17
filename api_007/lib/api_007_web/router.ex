@@ -9,6 +9,8 @@ defmodule Api007Web.Router do
     pipe_through :api
 
     resources "/users", UserController, only: [:index, :show, :create]
+    post "/users/:id", UserController, :update
     resources "/posts", PostController, only: [:index, :show, :create]
+    post "/posts/:id", PostController, :update
   end
 end

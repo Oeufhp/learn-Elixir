@@ -5,6 +5,7 @@ defmodule Api007.Users.User do
   schema "userss" do
     field :name, :string
 
+    many_to_many :posts, Api007.Posts.Post, join_through: "user_post", on_delete: :delete_all
     timestamps()
   end
 
