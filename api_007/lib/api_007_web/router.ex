@@ -13,5 +13,6 @@ defmodule Api007Web.Router do
     post "/users/posts/:id", UserController, :upsert_user_posts
     resources "/posts", PostController, only: [:index, :show, :create]
     post "/posts/:id", PostController, :update
+    post "/posts/users/:id", PostController, :upsert_post_users
   end
 end

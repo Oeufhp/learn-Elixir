@@ -6,6 +6,7 @@ defmodule Api007.Posts do
   import Ecto.Query, warn: false
   alias Api007.Repo
 
+  alias Api007.Users.User
   alias Api007.Posts.Post
 
   @doc """
@@ -71,6 +72,22 @@ defmodule Api007.Posts do
     post
     |> Post.changeset(attrs)
     |> Repo.update()
+  end
+
+  def upsert_post_users(post, user_ids) when is_list(user_ids) do
+    users = 
+    User
+    |> where([user], user.id in ^user_ids)
+    |> Repo.all()
+
+    with {:ok, _} <- post
+      |> Repo.preload(:user)
+      |> Post.changeset_update_user(users)
+      |> Repo.update() do
+        {:ok, get_post!(post.id)}
+      else
+        error -> error
+      end
   end
 
   @doc """

@@ -15,4 +15,11 @@ defmodule Api007.Posts.Post do
     |> cast(attrs, [:message])
     |> validate_required([:message])
   end
+
+  @doc false
+  def changeset_update_user(post, users) do
+    post
+    |> cast(%{}, [:message])
+    |> put_assoc(:user, users)
+  end
 end

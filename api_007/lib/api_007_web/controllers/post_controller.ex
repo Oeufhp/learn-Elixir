@@ -33,6 +33,14 @@ defmodule Api007Web.PostController do
     end
   end
 
+  def upsert_post_users(conn, %{"id" => id, "user_post" => user_params}) do
+    post = Posts.get_post!(id)
+
+    with {:ok, %Post{} = post} <- Posts.upsert_post_users(post, user_params["user_ids"]) do
+      render(conn, "show.json", post: post)
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     post = Posts.get_post!(id)
 
